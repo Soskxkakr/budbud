@@ -1,15 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
+@config "../tailwind.config.ts";
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+:root {
+  --background: 180 33% 99%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 174 33% 58%; /* #6FBBB6 */
+  --primary-light: 174 33% 67%; /* #8CCCC8 */
+  --primary-dark: 174 33% 49%; /* #5AA9A4 */
+  --primary-foreground: 210 40% 98%;
+  --secondary: 168 47% 94%; /* #E9F5F3 */
+  --secondary-light: 180 33% 98%; /* #F8FAFA */
+  --secondary-dark: 168 31% 86%; /* #D1E9E5 */
+  --secondary-foreground: 24 9.8% 10%;
+  --accent: 174 33% 58%; /* same as primary */
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 174 33% 58%; /* same as primary */
+  --radius: 0.5rem;
+  --chart-1: 174 33% 58%; /* primary */
+  --chart-2: 39 100% 57%; /* amber */
+  --chart-3: 226 70% 55.5%; /* indigo */
+  --chart-4: 322 65% 55%; /* pink */
+  --chart-5: 265 83% 62%; /* purple */
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 174 33% 58%; /* Keep primary the same */
+  --primary-foreground: 210 40% 98%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 174 33% 58%; /* Keep accent the same */
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 174 33% 58%; /* Keep ring the same */
+  --radius: 0.5rem;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-secondary-light text-foreground;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-md;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary;
+  }
+}
+
+@layer components {
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+
+  .card-hover:hover {
+    @apply transform -translate-y-1 shadow-lg;
+  }
+
+  /* Custom loading animation */
+  .loading-spinner {
+    @apply w-6 h-6 border-3 rounded-full border-primary/30 border-t-primary animate-spin;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
