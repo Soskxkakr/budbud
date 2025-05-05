@@ -31,7 +31,7 @@ const Sidebar = () => {
             <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
               <i className="ri-coin-line text-white"></i>
             </div>
-            <h1 className="text-xl font-semibold text-gray-800">
+            <h1 className="text-xl font-logo tracking-wide text-gray-800">
               Budget Buddy
             </h1>
           </div>
@@ -42,7 +42,7 @@ const Sidebar = () => {
               <NavLink key={link.href} to={link.href}>
                 <div
                   className={cn(
-                    "flex items-center px-3 py-2 text-sm font-medium rounded-md cursor-pointer",
+                    "flex items-center px-3 py-2 mb-2 text-sm font-medium rounded-md cursor-pointer",
                     location === link.href
                       ? "text-white bg-primary"
                       : "text-gray-600 hover:bg-secondary hover:text-primary"
@@ -60,19 +60,6 @@ const Sidebar = () => {
               </NavLink>
             ))}
           </nav>
-          <div className="p-4">
-            <div className="p-3 bg-secondary rounded-lg">
-              <h3 className="text-sm font-medium text-gray-700">
-                Premium Plan
-              </h3>
-              <p className="mt-1 text-xs text-gray-500">
-                Upgrade for advanced analytics and unlimited budgets.
-              </p>
-              <button className="mt-2 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-xs font-medium rounded-md text-white bg-info hover:bg-info focus:outline-none">
-                Upgrade Now
-              </button>
-            </div>
-          </div>
         </div>
         <div className="flex-shrink-0 p-4 border-t border-gray-200">
           <div className="flex items-center">

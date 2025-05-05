@@ -4,6 +4,10 @@ export default {
   darkMode: "class",
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ["Outfit", "sans-serif"],
+      logo: ["Anton", "sans-serif"],
+    },
     extend: {
       borderRadius: {
         lg: "var(--radius)",
