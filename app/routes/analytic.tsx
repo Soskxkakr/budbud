@@ -25,8 +25,10 @@ import {
 } from "recharts";
 import { chartColors, formatCurrency } from "~/lib/utils";
 import { categories, dashboardData } from "~/data/dummy-data";
+import { useIsMobile } from "~/hooks/use-mobile";
 
 const Analytic = () => {
+  const isMobile = useIsMobile();
   const [timeRange, setTimeRange] = useState("this-month");
   const [activeTab, setActiveTab] = useState("overview");
 
@@ -34,6 +36,14 @@ const Analytic = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (isMobile) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Please view this in browser
       </div>
     );
   }

@@ -327,24 +327,8 @@ const Transactions = () => {
       <TransactionForm
         isOpen={showTransactionModal}
         onClose={() => setShowTransactionModal(false)}
-        accounts={[
-          {
-            id: "1",
-            userId: "1",
-            name: "Wallet",
-            type: "savings",
-            balance: 10000,
-            currency: "MYR",
-          },
-        ]}
-        categories={[
-          {
-            id: "1",
-            name: "Food",
-            icon: "ri-restaurant-line",
-            color: "red",
-          },
-        ]}
+        accounts={accounts}
+        categories={categories}
       />
     </div>
   );
