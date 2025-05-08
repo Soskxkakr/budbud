@@ -3,27 +3,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Progress } from "~/components/ui/progress";
 import { Button } from "~/components/ui/button";
 import { calculateBudgetPercentage, formatCurrency } from "~/lib/utils";
+import type { Budget, Category } from "~/types/api";
 
-interface BudgetProgressProps {
-  budgets: {
-    id: string;
-    userId: string;
-    categoryId: string;
-    amount: number;
-    spent: number;
-    period: string;
-    startDate: string;
-    endDate: string;
-  }[];
-  categories: {
-    id: string;
-    name: string;
-    icon: string;
-    color: string;
-  }[];
-}
-
-const BudgetProgress = ({ budgets, categories }: BudgetProgressProps) => {
+const BudgetProgress = ({
+  budgets,
+  categories,
+}: {
+  budgets: Budget[];
+  categories: Category[];
+}) => {
   return (
     <Card>
       <CardHeader className="flex items-center justify-between p-5 border-b border-gray-200">

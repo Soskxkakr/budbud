@@ -21,7 +21,7 @@ const links: SidebarLink[] = [
 ];
 
 const Sidebar = () => {
-  const location = useLocation().pathname;
+  const location = useLocation().pathname.split("/")[1];
 
   return (
     <div className="hidden md:flex md:flex-shrink-0">
@@ -38,27 +38,31 @@ const Sidebar = () => {
         </div>
         <div className="flex flex-col flex-grow pt-5 overflow-y-auto">
           <nav className="flex-1 px-2 space-y-1">
-            {links.map((link) => (
-              <NavLink key={link.href} to={link.href}>
-                <div
-                  className={cn(
-                    "flex items-center px-3 py-2 mb-2 text-sm font-medium rounded-md cursor-pointer",
-                    location === link.href
-                      ? "text-white bg-primary"
-                      : "text-gray-600 hover:bg-secondary hover:text-primary"
-                  )}
-                >
-                  <i
+            {links.map((link) => {
+              const linkRoot = link.href.replace("/", "");
+
+              return (
+                <NavLink key={link.href} to={link.href}>
+                  <div
                     className={cn(
-                      link.icon,
-                      "mr-3",
-                      location === link.href ? "text-white" : "text-gray-400"
+                      "flex items-center px-3 py-2 mb-2 text-sm font-medium rounded-md cursor-pointer",
+                      location === linkRoot
+                        ? "text-white bg-primary"
+                        : "text-gray-600 hover:bg-secondary hover:text-primary"
                     )}
-                  ></i>
-                  {link.label}
-                </div>
-              </NavLink>
-            ))}
+                  >
+                    <i
+                      className={cn(
+                        link.icon,
+                        "mr-3",
+                        location === linkRoot ? "text-white" : "text-gray-400"
+                      )}
+                    ></i>
+                    {link.label}
+                  </div>
+                </NavLink>
+              );
+            })}
           </nav>
         </div>
         <div className="flex-shrink-0 p-4 border-t border-gray-200">

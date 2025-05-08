@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+import { MoreHorizontal } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
 import {
@@ -10,34 +11,13 @@ import {
   TableRow,
 } from "~/components/ui/table";
 import { Badge } from "~/components/ui/badge";
-import { MoreHorizontal } from "lucide-react";
 import { formatCurrency, formatDateToLocalString } from "~/lib/utils";
-
-interface RecentTransactionsProps {
-  transactions: {
-    id: string;
-    userId: string;
-    accountId: string;
-    categoryId: string;
-    amount: number;
-    description: string;
-    merchant: string;
-    date: string;
-    isRecurring: boolean;
-    type: string;
-  }[];
-  categories: {
-    id: string;
-    name: string;
-    icon: string;
-    color: string;
-  }[];
-}
+import type { RecentTransactionData } from "~/types/api";
 
 export function RecentTransactions({
   transactions,
   categories,
-}: RecentTransactionsProps) {
+}: RecentTransactionData) {
   return (
     <Card>
       <CardHeader className="flex items-center justify-between p-5 border-b border-gray-200">

@@ -20,35 +20,7 @@ import {
 import { Badge } from "~/components/ui/badge";
 import { TransactionForm } from "~/components/transaction/transaction-form";
 import { formatCurrency, formatDateToLocalString } from "~/lib/utils";
-
-interface Account {
-  id: string;
-  userId: string;
-  name: string;
-  type: string;
-  balance: number;
-  currency: string;
-}
-
-interface Category {
-  id: string;
-  name: string;
-  icon: string;
-  color: string;
-}
-
-interface Transaction {
-  id: string;
-  userId: string;
-  accountId: string;
-  categoryId: number;
-  amount: number;
-  description: string;
-  merchant?: string;
-  date: string;
-  isRecurring: boolean;
-  type: "income" | "expense";
-}
+import { accounts, categories, transactions } from "~/data/dummy-data";
 
 const Transactions = () => {
   const [showTransactionModal, setShowTransactionModal] = useState(false);
@@ -64,6 +36,44 @@ const Transactions = () => {
       </div>
     );
   }
+
+  const filteredTransactions = transactions
+    ?.filter((transaction) => {
+      // Search filter
+      const matchesSearch =
+        searchTerm === "" ||
+        transaction.description
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        (transaction.merchant &&
+          transaction.merchant
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()));
+
+      // Category filter
+      const matchesCategory =
+        categoryFilter === "all" || transaction.categoryId === categoryFilter;
+
+      // Account filter
+      const matchesAccount =
+        accountFilter === "all" || transaction.accountId === accountFilter;
+
+      return matchesSearch && matchesCategory && matchesAccount;
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+
+      if (sortOrder === "newest") {
+        return dateB - dateA;
+      } else if (sortOrder === "oldest") {
+        return dateA - dateB;
+      } else if (sortOrder === "highest") {
+        return Number(b.amount) - Number(a.amount);
+      } else {
+        return Number(a.amount) - Number(b.amount);
+      }
+    });
 
   return (
     <div className="py-6">
@@ -108,11 +118,14 @@ const Transactions = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Categories</SelectItem>
-                    {/* {categories?.map((category) => (
-                      <SelectItem key={category.id} value={category.id.toString()}>
+                    {categories?.map((category) => (
+                      <SelectItem
+                        key={category.id}
+                        value={category.id.toString()}
+                      >
                         {category.name}
                       </SelectItem>
-                    ))} */}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -123,11 +136,14 @@ const Transactions = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Accounts</SelectItem>
-                    {/* {accounts?.map((account) => (
-                      <SelectItem key={account.id} value={account.id.toString()}>
+                    {accounts?.map((account) => (
+                      <SelectItem
+                        key={account.id}
+                        value={account.id.toString()}
+                      >
                         {account.name}
                       </SelectItem>
-                    ))} */}
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -164,7 +180,7 @@ const Transactions = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {true ? (
+                  {filteredTransactions.length === 0 ? (
                     <TableRow>
                       <TableCell
                         colSpan={6}
@@ -184,23 +200,116 @@ const Transactions = () => {
                       </TableCell>
                     </TableRow>
                   ) : (
-                    <></>
+                    filteredTransactions?.map((transaction) => {
+                      const category = categories?.find(
+                        (c) => c.id === transaction.categoryId
+                      );
+                      const account = accounts?.find(
+                        (a) => a.id === transaction.accountId
+                      );
+                      const isIncome = transaction.type === "income";
+
+                      return (
+                        <TableRow
+                          key={transaction.id}
+                          className="hover:bg-gray-50"
+                        >
+                          <TableCell>
+                            <div className="flex items-center">
+                              <div
+                                className={`flex-shrink-0 h-8 w-8 rounded-full ${
+                                  isIncome ? "bg-green-100" : "bg-blue-100"
+                                } flex items-center justify-center`}
+                              >
+                                <i
+                                  className={`${
+                                    category?.icon || "ri-question-mark"
+                                  } ${
+                                    isIncome
+                                      ? "text-green-600"
+                                      : "text-blue-600"
+                                  }`}
+                                ></i>
+                              </div>
+                              <div className="ml-4">
+                                <div className="text-sm font-medium text-gray-900">
+                                  {transaction.description}
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                  {transaction.merchant}
+                                </div>
+                              </div>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <Badge
+                              variant={
+                                isIncome
+                                  ? "success"
+                                  : category?.name === "Entertainment"
+                                  ? "purple"
+                                  : "info"
+                              }
+                            >
+                              {category?.name || "Uncategorized"}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-sm text-gray-500">
+                            {formatDateToLocalString(transaction.date)}
+                          </TableCell>
+                          <TableCell className="text-sm text-gray-600">
+                            {account?.name || "Unknown"}
+                          </TableCell>
+                          <TableCell
+                            className={`text-sm font-medium ${
+                              isIncome ? "text-green-600" : "text-red-600"
+                            }`}
+                          >
+                            {isIncome ? "+" : "-"}
+                            {formatCurrency(transaction.amount)}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <div className="flex justify-end space-x-2">
+                              <Button variant="ghost" size="sm">
+                                <i className="ri-edit-line mr-1"></i>
+                                Edit
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-red-500 hover:text-red-700"
+                              >
+                                <i className="ri-delete-bin-line mr-1"></i>
+                                Delete
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
                   )}
                 </TableBody>
               </Table>
             </div>
 
             {/* Pagination */}
-            {/* {filteredTransactions && filteredTransactions.length > 0 && (
+            {transactions && transactions.length > 0 && (
               <div className="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
                 <div className="flex items-center justify-between">
                   <div className="text-sm text-gray-700">
                     Showing <span className="font-medium">1</span> to{" "}
-                    <span className="font-medium">{filteredTransactions.length}</span> of{" "}
-                    <span className="font-medium">{filteredTransactions.length}</span> transactions
+                    <span className="font-medium">{transactions.length}</span>{" "}
+                    of{" "}
+                    <span className="font-medium">{transactions.length}</span>{" "}
+                    transactions
                   </div>
                   <div className="flex-1 flex justify-end">
-                    <Button variant="outline" size="sm" disabled className="mr-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled
+                      className="mr-2"
+                    >
                       Previous
                     </Button>
                     <Button variant="outline" size="sm" disabled>
@@ -209,7 +318,7 @@ const Transactions = () => {
                   </div>
                 </div>
               </div>
-            )} */}
+            )}
           </CardContent>
         </Card>
       </div>

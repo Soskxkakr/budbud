@@ -1,29 +1,19 @@
-export interface Category {
-  id: string;
-  name: string;
-  icon: string;
-  color: string;
-}
+import type {
+  Account,
+  Budget,
+  Category,
+  ExpenseByCategoryData,
+  RecentTransactionData,
+  SpendingOverviewData,
+  Transaction,
+} from "~/types/api";
 
-export interface Account {
-  id: string;
-  userId: string;
-  name: string;
-  type: string;
-  balance: number;
-  currency: string;
-}
-
-export interface Budget {
-  id: string;
-  userId: string;
-  categoryId: string;
-  amount: number;
-  spent: number;
-  period: string;
-  startDate: string;
-  endDate: string;
-}
+export const user = {
+  id: "123",
+  fullName: "John Doe",
+  username: "johndoe",
+  email: "john@example.com",
+};
 
 export const categories: Category[] = [
   {
@@ -60,6 +50,7 @@ export const accounts: Account[] = [
     type: "savings",
     balance: 10000,
     currency: "MYR",
+    isPrimary: true,
   },
   {
     id: "2",
@@ -68,6 +59,7 @@ export const accounts: Account[] = [
     type: "checking",
     balance: 5000,
     currency: "MYR",
+    isPrimary: false,
   },
   {
     id: "3",
@@ -76,6 +68,7 @@ export const accounts: Account[] = [
     type: "credit",
     balance: -2000,
     currency: "MYR",
+    isPrimary: false,
   },
 ];
 
@@ -111,3 +104,90 @@ export const budgets: Budget[] = [
     endDate: "2023-12-31",
   },
 ];
+
+export const spendings: SpendingOverviewData[] = [
+  {
+    month: "JAN",
+    expenses: 200,
+    income: 100,
+  },
+  {
+    month: "FEB",
+    expenses: 300,
+    income: 1000,
+  },
+  {
+    month: "MAR",
+    expenses: 400,
+    income: 1500,
+  },
+];
+
+export const transactions: Transaction[] = [
+  {
+    id: "1",
+    accountId: "1",
+    userId: "1",
+    isRecurring: false,
+    merchant: "Tesco",
+    description: "Groceries",
+    amount: 50,
+    date: "2023-01-01",
+    type: "expense",
+    categoryId: "1",
+  },
+  {
+    id: "2",
+    accountId: "2",
+    userId: "1",
+    isRecurring: true,
+    merchant: "Shell",
+    description: "Fuel",
+    amount: 100,
+    date: "2023-01-02",
+    type: "expense",
+    categoryId: "2",
+  },
+  {
+    id: "3",
+    accountId: "3",
+    userId: "1",
+    isRecurring: false,
+    merchant: "Starbucks",
+    description: "Coffee",
+    amount: 20,
+    date: "2023-01-03",
+    type: "expense",
+    categoryId: "4",
+  },
+];
+
+export const expensesByCategory: ExpenseByCategoryData[] = [
+  {
+    category: categories[0],
+    total: 200,
+  },
+  {
+    category: categories[1],
+    total: 300,
+  },
+  {
+    category: categories[2],
+    total: 400,
+  },
+  {
+    category: categories[3],
+    total: 600,
+  },
+];
+
+export const dashboardData = {
+  totalBalance: 10000,
+  monthlyIncome: 20000,
+  monthlyExpenses: 6000,
+  totalSavings: 5000,
+  recentTransactions: transactions.slice(0, 5),
+  budgets,
+  expensesByCategory,
+  spendingOverview: spendings,
+};

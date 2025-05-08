@@ -1,4 +1,3 @@
-import { NavLink } from "react-router";
 import {
   Card,
   CardContent,
@@ -8,17 +7,12 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
+import { Badge } from "~/components/ui/badge";
 import { formatCurrency } from "~/lib/utils";
 import { useState } from "react";
-
-interface Account {
-  id: string;
-  userId: string;
-  name: string;
-  type: string;
-  balance: number;
-  currency: string;
-}
+import { accounts } from "~/data/dummy-data";
+import type { Account } from "~/types/api";
+import { NavLink } from "react-router";
 
 function AccountCard({ account }: { account: Account }) {
   const getAccountIcon = (type: string) => {
@@ -64,6 +58,7 @@ function AccountCard({ account }: { account: Account }) {
               <i className={getAccountIcon(account.type)}></i>
             </div>
             <CardTitle>{account.name}</CardTitle>
+            {account.isPrimary && <Badge>Primary</Badge>}
           </div>
           <Button variant="ghost" size="icon">
             <i className="ri-more-2-fill"></i>
@@ -79,10 +74,12 @@ function AccountCard({ account }: { account: Account }) {
         </div>
       </CardContent>
       <CardFooter className="border-t pt-4 flex justify-between">
-        <Button variant="outline" size="sm">
-          <i className="ri-eye-line mr-2"></i>
-          View
-        </Button>
+        <NavLink to={`./${account.id}`}>
+          <Button variant="outline" size="sm">
+            <i className="ri-eye-line mr-2"></i>
+            View
+          </Button>
+        </NavLink>
         <Button variant="outline" size="sm">
           <i className="ri-exchange-line mr-2"></i>
           Transfer
@@ -92,20 +89,21 @@ function AccountCard({ account }: { account: Account }) {
   );
 }
 
-export default function Accounts() {
-  const [accounts, setAccounts] = useState<Account[]>([]);
+const Account = () => {
+  const [accountsData, setAccountsData] = useState<Account[]>(accounts);
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center">
-  //       <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-  //     </div>
-  //   );
-  // }
+  if (false) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   // Calculate total balance
   const totalBalance =
-    accounts?.reduce((sum, account) => sum + Number(account.balance), 0) || 0;
+    accountsData?.reduce((sum, account) => sum + Number(account.balance), 0) ||
+    0;
 
   return (
     <div className="py-6">
@@ -125,7 +123,7 @@ export default function Accounts() {
 
         {/* Accounts Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {accounts?.map((account) => (
+          {accountsData?.map((account) => (
             <AccountCard key={account.id} account={account} />
           ))}
 
@@ -146,4 +144,6 @@ export default function Accounts() {
       </div>
     </div>
   );
-}
+};
+
+export default Account;

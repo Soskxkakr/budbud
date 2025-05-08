@@ -7,7 +7,14 @@ import BudgetProgress from "~/components/dashboard/budget-progress";
 import { RecentTransactions } from "~/components/dashboard/recent-transactions";
 import { ExpenseByCategory } from "~/components/dashboard/expense-by-category";
 import { TransactionForm } from "~/components/transaction/transaction-form";
-import { accounts, categories, budgets } from "~/data/dummy-data";
+import {
+  accounts,
+  categories,
+  budgets,
+  expensesByCategory,
+  transactions,
+  spendings,
+} from "~/data/dummy-data";
 
 const Dashboard = () => {
   const [showTransactionModal, setShowTransactionModal] = useState(false);
@@ -77,12 +84,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Chart Section - Spending Overview */}
           <div className="lg:col-span-2">
-            <SpendingOverview
-              data={[
-                { month: "JAN", expenses: 200, income: 100 },
-                { month: "FEB", expenses: 300, income: 1000 },
-              ]}
-            />
+            <SpendingOverview data={spendings} />
           </div>
 
           {/* Budget Progress */}
@@ -95,42 +97,14 @@ const Dashboard = () => {
           {/* Recent Transactions */}
           <div className="lg:col-span-2">
             <RecentTransactions
-              transactions={[
-                {
-                  id: "1",
-                  accountId: "1",
-                  userId: "1",
-                  isRecurring: false,
-                  merchant: "Tesco",
-                  description: "Groceries",
-                  amount: 50,
-                  date: "2023-01-01",
-                  type: "expense",
-                  categoryId: "1",
-                },
-              ]}
+              transactions={transactions}
               categories={categories}
             />
           </div>
 
           {/* Expense by Category */}
           <div className="lg:col-span-1">
-            <ExpenseByCategory
-              expenseData={[
-                {
-                  category: categories[0],
-                  total: 200,
-                },
-                {
-                  category: categories[1],
-                  total: 300,
-                },
-                {
-                  category: categories[3],
-                  total: 600,
-                },
-              ]}
-            />
+            <ExpenseByCategory expenseData={expensesByCategory} />
           </div>
         </div>
       </div>
