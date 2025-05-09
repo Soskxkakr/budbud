@@ -270,14 +270,18 @@ const Transactions = () => {
                           </TableCell>
                           <TableCell className="text-right">
                             <div className="flex justify-end space-x-2">
-                              <Button variant="ghost" size="sm">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="hover:bg-secondary hover:text-primary"
+                              >
                                 <i className="ri-edit-line mr-1"></i>
                                 Edit
                               </Button>
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="text-red-500 hover:text-red-700"
+                                className="text-red-500 hover:text-red-700 hover:bg-red-200"
                               >
                                 <i className="ri-delete-bin-line mr-1"></i>
                                 Delete

@@ -7,10 +7,7 @@ import {
 
 export default [
   index("routes/dashboard.tsx"),
-  ...prefix("accounts", [
-    index("routes/account/index.tsx"),
-    route(":accountId", "routes/account/details.tsx"),
-  ]),
+  ...prefix("accounts", [index("routes/account.tsx")]),
   // route("/accounts", "routes/account/index.tsx"),
   // route("/accounts/:accountId", "routes/account/details.tsx"),
   route("/transactions", "routes/transaction.tsx"),

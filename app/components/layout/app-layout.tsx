@@ -1,6 +1,7 @@
 import Sidebar from "~/components/layout/sidebar";
 import UserNav from "~/components/layout/user-nav";
 import MobileNav from "~/components/layout/mobile-nav";
+import { ToastProvider, ToastViewport } from "~/components/ui/toast";
 import { useIsMobile } from "~/hooks/use-mobile";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
@@ -23,7 +24,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         <main
           className={`flex-1 relative overflow-y-auto focus:outline-none ${mobilePaddingClass}`}
         >
-          {children}
+          <ToastProvider>
+            <ToastViewport />
+            {children}
+          </ToastProvider>
         </main>
       </div>
 

@@ -116,7 +116,11 @@ export function RecentTransactions({
                         {formatCurrency(transaction.amount)}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button variant="ghost" size="icon">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="hover:text-white"
+                        >
                           <MoreHorizontal className="h-4 w-4" />
                         </Button>
                       </TableCell>
