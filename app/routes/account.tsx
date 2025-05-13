@@ -15,9 +15,9 @@ import {
 } from "~/components/ui/toast";
 
 const Account = () => {
-  const [accountsData, setAccountsData] = useState<Account[]>(accounts);
   const [showTransferModal, setShowTransferModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
 
   if (false) {
     return (
@@ -29,8 +29,7 @@ const Account = () => {
 
   // Calculate total balance
   const totalBalance =
-    accountsData?.reduce((sum, account) => sum + Number(account.balance), 0) ||
-    0;
+    accounts?.reduce((sum, account) => sum + Number(account.balance), 0) || 0;
 
   return (
     <div className="py-6">
@@ -57,11 +56,14 @@ const Account = () => {
 
         {/* Accounts Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {accountsData?.map((account) => (
+          {accounts?.map((account) => (
             <AccountCard
               key={account.id}
               account={account}
-              showTransferModal={() => setShowTransferModal(true)}
+              showTransferModal={() => {
+                setSelectedAccount(account);
+                setShowTransferModal(true);
+              }}
               showToast={() => setShowToast(true)}
             />
           ))}
@@ -81,11 +83,20 @@ const Account = () => {
           </Card>
         </div>
 
-        <TransferForm
-          isOpen={showTransferModal}
-          onClose={() => setShowTransferModal(false)}
-          accounts={accountsData}
-        />
+        <div>{JSON.stringify(selectedAccount)}</div>
+
+        {selectedAccount && (
+          <TransferForm
+            isOpen={showTransferModal}
+            onClose={() => {
+              setShowTransferModal(false);
+              setTimeout(() => {
+                setSelectedAccount(null);
+              }, 300);
+            }}
+            selectedAccount={selectedAccount}
+          />
+        )}
       </div>
     </div>
   );
