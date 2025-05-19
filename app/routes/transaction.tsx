@@ -176,6 +176,7 @@ const Transactions = () => {
                     <TableHead>Date</TableHead>
                     <TableHead>Account</TableHead>
                     <TableHead>Amount</TableHead>
+                    <TableHead className="text-center">Recurring</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -268,6 +269,7 @@ const Transactions = () => {
                             {isIncome ? "+" : "-"}
                             {formatCurrency(transaction.amount)}
                           </TableCell>
+                          <TableCell className="text-center">Y</TableCell>
                           <TableCell className="text-right">
                             <div className="flex justify-end space-x-2">
                               <Button

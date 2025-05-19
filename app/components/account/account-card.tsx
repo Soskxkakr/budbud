@@ -74,22 +74,28 @@ const AccountCard = ({
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <div className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent h-10 w-10 hover:text-white">
+              <div className="cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:border-primary bordcer-transparent border-1 border-transparent h-10 w-10">
                 <i className="ri-more-2-fill"></i>
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>Edit</DropdownMenuItem>
-              <DropdownMenuItem>Duplicate</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                Duplicate
+              </DropdownMenuItem>
               {!account.isPrimary && (
                 <>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Set as primary</DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer">
+                    Set as primary
+                  </DropdownMenuItem>
                 </>
               )}
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className="text-red-500 focus:text-red-700 focus:bg-red-200"
+                className="cursor-pointer text-red-500 focus:text-red-700 focus:bg-red-200"
                 onClick={showToast}
               >
                 Delete

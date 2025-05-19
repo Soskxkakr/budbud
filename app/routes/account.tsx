@@ -83,8 +83,6 @@ const Account = () => {
           </Card>
         </div>
 
-        <div>{JSON.stringify(selectedAccount)}</div>
-
         {selectedAccount && (
           <TransferForm
             isOpen={showTransferModal}

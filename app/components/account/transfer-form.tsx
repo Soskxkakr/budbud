@@ -54,7 +54,7 @@ const TransferForm = ({
         </DialogHeader>
 
         <div className="relative">
-          <form onSubmit={() => {}} className="space-y-4 mx-2">
+          <form onSubmit={() => {}} className="space-y-4 mx-1">
             <Label className={cn(false && "text-destructive")}>From</Label>
             <div
               className={`p-2 border rounded-md transition-colors flex items-center space-x-3`}
@@ -93,7 +93,7 @@ const TransferForm = ({
                 }));
               }}
             >
-              <SelectTrigger>
+              <SelectTrigger className="mt-2">
                 <SelectValue placeholder="Select account" />
               </SelectTrigger>
               <SelectContent>
@@ -113,14 +113,14 @@ const TransferForm = ({
               }`}
             >
               <Label className={cn(false && "text-destructive")}>Amount</Label>
-              <div className="relative rounded-md shadow-sm mt-2">
+              <div className="relative rounded-md shadow-sm my-2">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <span className="text-gray-500 sm:text-sm">$</span>
                 </div>
                 <Input
                   placeholder="0.00"
                   className="pl-7"
-                  value={"0"}
+                  value={""}
                   onChange={(e) => {
                     const value = e.target.value;
 
@@ -137,7 +137,7 @@ const TransferForm = ({
               <Label className={cn(false && "text-destructive")}>Remarks</Label>
               <Input
                 placeholder="Enter remarks"
-                className="mt-2"
+                className="my-2"
                 value={formDetails.remarks}
                 onChange={(e) => {
                   const value = e.target.value;
@@ -153,7 +153,7 @@ const TransferForm = ({
               <Button type="button" variant="outline" onClick={onClose}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={false}>
+              <Button type="submit" disabled={!formDetails.accountId}>
                 Save Transaction
               </Button>
             </DialogFooter>
