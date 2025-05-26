@@ -219,7 +219,7 @@ const Transactions = () => {
                             <div className="flex items-center">
                               <div
                                 className={`flex-shrink-0 h-8 w-8 rounded-full ${
-                                  isIncome ? "bg-green-100" : "bg-blue-100"
+                                  isIncome ? "bg-green-100" : "bg-red-100"
                                 } flex items-center justify-center`}
                               >
                                 <i
@@ -228,7 +228,7 @@ const Transactions = () => {
                                   } ${
                                     isIncome
                                       ? "text-green-600"
-                                      : "text-blue-600"
+                                      : "text-red-600"
                                   }`}
                                 ></i>
                               </div>
@@ -244,13 +244,8 @@ const Transactions = () => {
                           </TableCell>
                           <TableCell>
                             <Badge
-                              variant={
-                                isIncome
-                                  ? "success"
-                                  : category?.name === "Entertainment"
-                                  ? "purple"
-                                  : "info"
-                              }
+                              className="text-xs"
+                              style={{ backgroundColor: category?.color || "#ccc" }}
                             >
                               {category?.name || "Uncategorized"}
                             </Badge>
@@ -275,7 +270,7 @@ const Transactions = () => {
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="hover:bg-secondary hover:text-primary"
+                                className="hover:bg-secondary hover:text-primary cursor-pointer"
                               >
                                 <i className="ri-edit-line mr-1"></i>
                                 Edit
@@ -283,7 +278,7 @@ const Transactions = () => {
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="text-red-500 hover:text-red-700 hover:bg-red-200"
+                                className="text-red-500 hover:text-red-700 hover:bg-red-200 cursor-pointer"
                               >
                                 <i className="ri-delete-bin-line mr-1"></i>
                                 Delete

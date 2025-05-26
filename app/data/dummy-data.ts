@@ -20,25 +20,25 @@ export const categories: Category[] = [
     id: "1",
     name: "Food",
     icon: "ri-restaurant-line",
-    color: "red",
+    color: "#6FBBB6",
   },
   {
     id: "2",
     name: "Transportation",
     icon: "ri-car-line",
-    color: "blue",
+    color: "#F59E0B",
   },
   {
     id: "3",
     name: "Shopping",
     icon: "ri-shopping-cart-line",
-    color: "green",
+    color: "#4F46E5",
   },
   {
     id: "4",
     name: "Entertainment",
     icon: "ri-movie-line",
-    color: "purple",
+    color: "#EC4899",
   },
 ];
 

@@ -36,7 +36,7 @@ const SpendingOverview = ({ data }: SpendingOverviewProps) => {
         <CardTitle className="text-lg font-medium text-gray-900">
           Spending Overview
         </CardTitle>
-        <Select value={timeRange} onValueChange={setTimeRange}>
+        <Select value={timeRange} onValueChange={(value) => setTimeRange(value)}>
           <SelectTrigger className="w-[160px]">
             <SelectValue placeholder="Select range" />
           </SelectTrigger>
@@ -71,7 +71,7 @@ const SpendingOverview = ({ data }: SpendingOverviewProps) => {
               <Line
                 type="monotone"
                 dataKey="income"
-                stroke="#16A34A"
+                stroke="#72b8b1"
                 strokeWidth={3}
                 activeDot={{ r: 8 }}
                 name="Income"
@@ -79,7 +79,7 @@ const SpendingOverview = ({ data }: SpendingOverviewProps) => {
               <Line
                 type="monotone"
                 dataKey="expenses"
-                stroke="#DC2626"
+                stroke="#ed2d37"
                 strokeWidth={3}
                 name="Expenses"
               />
@@ -89,11 +89,17 @@ const SpendingOverview = ({ data }: SpendingOverviewProps) => {
 
         <div className="flex justify-center mt-4 space-x-4">
           <div className="flex items-center">
-            <span className="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
+            <span
+              style={{ backgroundColor: "#72b8b1" }}
+              className="w-3 h-3 rounded-full mr-2"
+            ></span>
             <span className="text-sm text-gray-600">Income</span>
           </div>
           <div className="flex items-center">
-            <span className="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
+            <span
+              style={{ backgroundColor: "#ed2d37" }}
+              className="w-3 h-3 rounded-full mr-2"
+            ></span>
             <span className="text-sm text-gray-600">Expenses</span>
           </div>
         </div>

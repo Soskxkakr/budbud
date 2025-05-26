@@ -198,8 +198,8 @@ const Analytic = () => {
                         formatter={(value) => formatCurrency(value as number)}
                       />
                       <Legend />
-                      <Bar dataKey="income" name="Income" fill="#16A34A" />
-                      <Bar dataKey="expenses" name="Expenses" fill="#DC2626" />
+                      <Bar dataKey="income" name="Income" fill="#72b8b1" />
+                      <Bar dataKey="expenses" name="Expenses" fill="#ed2d37" />
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>
@@ -266,7 +266,7 @@ const Analytic = () => {
                       type="monotone"
                       dataKey="income"
                       name="Income"
-                      stroke="#16A34A"
+                      stroke="#72b8b1"
                       strokeWidth={2}
                       activeDot={{ r: 8 }}
                     />
@@ -274,7 +274,7 @@ const Analytic = () => {
                       type="monotone"
                       dataKey="expenses"
                       name="Expenses"
-                      stroke="#DC2626"
+                      stroke="#ed2d37"
                       strokeWidth={2}
                     />
                   </LineChart>
@@ -435,7 +435,7 @@ const Analytic = () => {
                                 <i className="ri-arrow-down-s-line"></i> 1.8%
                               </span>
                             ) : (
-                              <span className="text-gray-500">–</span>
+                              <span className="text-gray-500">-</span>
                             )}
                           </td>
                         </tr>
@@ -475,7 +475,7 @@ const Analytic = () => {
                       type="monotone"
                       dataKey="expenses"
                       name="Expenses"
-                      stroke="#DC2626"
+                      stroke="#ed2d37"
                       strokeWidth={2}
                     />
                   </LineChart>
@@ -529,12 +529,12 @@ const Analytic = () => {
                       <Bar
                         dataKey="adherence"
                         name="Budget Adherence"
-                        fill="#16A34A"
+                        fill="#72b8b1"
                       />
                       <Bar
                         dataKey="overspend"
                         name="Overspend"
-                        fill="#DC2626"
+                        fill="#ed2d37"
                       />
                     </BarChart>
                   </ResponsiveContainer>

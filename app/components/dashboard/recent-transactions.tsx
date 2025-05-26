@@ -13,6 +13,7 @@ import {
 import { Badge } from "~/components/ui/badge";
 import { formatCurrency, formatDateToLocalString } from "~/lib/utils";
 import type { RecentTransactionData } from "~/types/api";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 export function RecentTransactions({
   transactions,
@@ -27,7 +28,7 @@ export function RecentTransactions({
         <NavLink to="/transactions">
           <Button
             variant="link"
-            className="text-sm font-medium text-primary hover:text-primary-dark"
+            className="text-sm font-medium text-primary hover:text-primary-dark cursor-pointer"
           >
             View All
           </Button>
@@ -116,13 +117,25 @@ export function RecentTransactions({
                         {formatCurrency(transaction.amount)}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="hover:text-white"
-                        >
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger>
+                            <div className="cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:border-primary bordcer-transparent border-1 border-transparent h-10 w-10">
+                              <i className="ri-more-2-fill"></i>
+                            </div>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent>
+                            <DropdownMenuItem className="cursor-pointer">
+                              <NavLink to={`/transactions/${transaction.id}`}>Edit</NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                              className="cursor-pointer text-red-500 focus:text-red-700 focus:bg-red-200"
+                              onClick={() => {}}
+                            >
+                              Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </TableCell>
                     </TableRow>
                   );

@@ -94,8 +94,8 @@ export function ExpenseByCategory({ expenseData }: ExpenseByCategoryProps) {
             <div key={index} className="flex items-center justify-between">
               <div className="flex items-center">
                 <div
-                  className="w-4 h-4 rounded-full mr-2"
                   style={{ backgroundColor: item.color }}
+                  className="w-4 h-4 rounded-full mr-2"
                 ></div>
                 <span className="text-sm text-gray-600">{item.name}</span>
               </div>

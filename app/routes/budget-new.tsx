@@ -195,9 +195,9 @@ const BudgetNew = () => {
           </div>
           <div className="flex gap-2">
             <Button variant="outline">
-              <NavLink to="/budgets">Cancel</NavLink>
+              <NavLink to="/budgets"><i className="ri-arrow-left-line mr-2"></i>Cancel</NavLink>
             </Button>
-            <Button type="submit">Create Budget</Button>
+            <Button type="submit"><i className="ri-save-line mr-2"></i>Create Budget</Button>
           </div>
         </form>
       </div>

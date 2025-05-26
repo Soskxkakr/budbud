@@ -57,224 +57,237 @@ const AccountDetails = ({
   return (
     <div className="py-6">
       <div className="px-4 sm:px-6 md:px-8">
-        <div className="flex items-center space-x-2">
-          <div
-            className={`h-16 w-16 rounded-full bg-${account.iconBgColor}-100 flex items-center justify-center`}
+        <div className="w-full">
+          <form
+            className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4 bg-white/80 rounded-lg p-4 shadow"
           >
-            <i
-              className={`${account.icon} text-${account.iconColor}-600 text-3xl`}
-            ></i>
-          </div>
-          <div className="ml-2 text-3xl">{account.name}</div>
+            <div className="flex items-center col-span-2">
+              <div
+                className={`h-16 w-16 rounded-full bg-${account.iconBgColor}-100 flex items-center justify-center`}
+              >
+                <i
+                  className={`${account.icon} text-${account.iconColor}-600 text-3xl`}
+                ></i>
+              </div>
+              <div id="budget-title" className="ml-2 text-3xl">{account.name}</div>
+            </div>
+            <div className="col-span-3">
+              {/* Name */}
+              <div className="flex flex-col gap-1">
+                <Label className="text-sm">Name</Label>
+                <Input
+                  value={account.name}
+                  onChange={(e) => {
+                    const value = e.target.value;
+
+                    // if (value === "" || /^\d*\.?\d{0,2}$/.test(value)) {
+                    //   setFormDetails((prev) => ({
+                    //     ...prev,
+                    //     amount: value,
+                    //   }));
+                    // }
+                  }}
+                />
+              </div>
+            </div>
+            <div className="col-span-3">
+              {/* Type */}
+              <div className="flex flex-col gap-1">
+                <Label className="text-sm">Type</Label>
+                <Select value={account.type}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select account type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={"credit"}>Credit</SelectItem>
+                    <SelectItem value={"debit"}>Debit</SelectItem>
+                    <SelectItem value={"savings"}>Savings</SelectItem>
+                    <SelectItem value={"checking"}>Checking</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="col-span-3">
+              {/* Current Amount */}
+              <div className="flex flex-col gap-1">
+                <Label className="text-sm">Current Amount</Label>
+                <div className="relative rounded-md my-2">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span className="text-gray-500 sm:text-sm">
+                      {account.currency}
+                    </span>
+                  </div>
+                  <Input
+                    placeholder="0.00"
+                    className="pl-12"
+                    value={account.balance}
+                    onChange={(e) => {
+                      const value = e.target.value;
+
+                      // if (value === "" || /^\d*\.?\d{0,2}$/.test(value)) {
+                      //   setFormDetails((prev) => ({
+                      //     ...prev,
+                      //     amount: value,
+                      //   }));
+                      // }
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col-span-3">
+              {/* Currency */}
+              <div className="flex flex-col gap-1">
+                <Label className="text-sm">Currency</Label>
+                <Select value={account.currency}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select currency" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="MYR">Malaysian Ringgit (MYR)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="col-span-3 sm:col-span-1 md:col-span-1">
+              {/* Icon */}
+              <div className="flex flex-col gap-1">
+                <Label className="text-sm">Icon</Label>
+                <Select value={account.icon}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select icon" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ri-bank-line">
+                      <div className="w-4 h-4">
+                        <i className="ri-bank-line"></i>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="ri-safe-2-line">
+                      <div className="w-4 h-4">
+                        <i className="ri-safe-2-line"></i>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="ri-bank-card-line">
+                      <div className="w-4 h-4">
+                        <i className="ri-bank-card-line"></i>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="ri-money-dollar-box-line">
+                      <div className="w-4 h-4">
+                        <i className="ri-money-dollar-box-line"></i>
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="col-span-3 sm:col-span-1 md:col-span-1">
+              {/* Icon Color */}
+              <div className="flex flex-col gap-1">
+                <Label className="text-sm">Icon Color</Label>
+                <Select value={account.iconColor}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select icon color" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="green">
+                      <div className="w-4 h-4 bg-green-600 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="blue">
+                      <div className="w-4 h-4 bg-blue-600 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="purple">
+                      <div className="w-4 h-4 bg-purple-600 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="yellow">
+                      <div className="w-4 h-4 bg-yellow-600 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="red">
+                      <div className="w-4 h-4 bg-red-600 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="pink">
+                      <div className="w-4 h-4 bg-pink-600 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="indigo">
+                      <div className="w-4 h-4 bg-indigo-600 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="gray">
+                      <div className="w-4 h-4 bg-gray-600 border-1"></div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="col-span-3 sm:col-span-1 md:col-span-1">
+              {/* Icon Background Color */}
+              <div className="flex flex-col gap-1">
+                <Label className="text-sm">Icon Background Color</Label>
+                <Select value={account.iconColor}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select icon background color" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="green">
+                      <div className="w-4 h-4 bg-green-100 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="blue">
+                      <div className="w-4 h-4 bg-blue-100 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="purple">
+                      <div className="w-4 h-4 bg-purple-100 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="yellow">
+                      <div className="w-4 h-4 bg-yellow-100 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="pink">
+                      <div className="w-4 h-4 bg-pink-100 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="indigo">
+                      <div className="w-4 h-4 bg-indigo-100 border-1"></div>
+                    </SelectItem>
+                    <SelectItem value="gray">
+                      <div className="w-4 h-4 bg-gray-100 border-1"></div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="col-span-3">
+              <Label className="text-sm mr-4">Primary account:</Label>
+              <div className="flex flex-row items-start space-x-3 rounded-md border p-4 col-span-9 mt-4">
+                <Checkbox
+                  checked={account.isPrimary}
+                  onCheckedChange={(checked) => {}}
+                />
+                <div className="leading-none">
+                  <p className="text-sm">Set this to primary account.</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-1">
+              <div className="flex flex-row items-center space-x-2">
+                <NavLink to="/accounts">
+                  <Button
+                    variant="outline"
+                    onClick={() => {}}
+                  >
+                    <i className="ri-arrow-left-line mr-2"></i>
+                    Back
+                  </Button>
+                </NavLink>
+                <Button
+                  variant="default"
+                  onClick={() => {}}
+                  disabled
+                >
+                  <i className="ri-save-line mr-2"></i>
+                  Save
+                </Button>
+              </div>
+            </div>
+          </form>
         </div>
-        <form className="md:grid md:grid-cols-8 lg:grid-cols-10 mt-4 px-4 border-1 items-center">
-          <Label className="text-sm mr-4">Name:</Label>
-          <Input
-            className="col-span-9 mb-2 mt-4"
-            value={account.name}
-            onChange={(e) => {
-              const value = e.target.value;
-
-              // if (value === "" || /^\d*\.?\d{0,2}$/.test(value)) {
-              //   setFormDetails((prev) => ({
-              //     ...prev,
-              //     amount: value,
-              //   }));
-              // }
-            }}
-          />
-
-          <Label className="text-sm mr-4">Type:</Label>
-          <Select
-            value={account.type}
-            // onValueChange={(value) => {
-            //   setFormDetails((prevState) => ({
-            //     ...prevState,
-            //     accountId: value,
-            //   }));
-            // }}
-          >
-            <SelectTrigger className="mt-2 mb-2 col-span-9">
-              <SelectValue placeholder="Select account type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={"credit"}>Credit</SelectItem>
-              <SelectItem value={"debit"}>Debit</SelectItem>
-              <SelectItem value={"savings"}>Savings</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Label className="text-sm mr-4">Current Amount:</Label>
-          <div className="relative rounded-md my-2 col-span-9">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="text-gray-500 sm:text-sm">
-                {account.currency}
-              </span>
-            </div>
-            <Input
-              placeholder="0.00"
-              className="pl-12"
-              value={account.balance}
-              onChange={(e) => {
-                const value = e.target.value;
-
-                // if (value === "" || /^\d*\.?\d{0,2}$/.test(value)) {
-                //   setFormDetails((prev) => ({
-                //     ...prev,
-                //     amount: value,
-                //   }));
-                // }
-              }}
-            />
-          </div>
-
-          <Label className="text-sm mr-4">Currency:</Label>
-          <Select
-            value={account.currency}
-            // onValueChange={(value) => {
-            //   setFormDetails((prevState) => ({
-            //     ...prevState,
-            //     accountId: value,
-            //   }));
-            // }}
-          >
-            <SelectTrigger className="mt-2 col-span-9">
-              <SelectValue placeholder="Select account" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={"MYR"}>Malaysian Ringgit (MYR)</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Label className="text-sm mr-4">Customization:</Label>
-          <Label className="text-sm mr-4">Icon:</Label>
-          <div className="flex flex-row flex-wrap md:flex-nowrap items-center space-x-4 space-y-2 md:space-y-0 col-span-2 mt-4">
-            <RadioGroup
-              value={account.icon}
-              onValueChange={() => {}}
-              className="flex flex-row flex-wrap gap-2"
-            >
-              <Label className="flex items-center space-x-2 mb-2">
-                <RadioGroupItem value="ri-bank-line" />
-                <div className="w-4 h-4">
-                  <i className="ri-bank-line"></i>
-                </div>
-                <RadioGroupItem value="ri-safe-2-line" />
-                <div className="w-4 h-4">
-                  <i className="ri-safe-2-line"></i>
-                </div>
-                <RadioGroupItem value="ri-bank-card-line" />
-                <div className="w-4 h-4">
-                  <i className="ri-bank-card-line"></i>
-                </div>
-                <RadioGroupItem value="ri-money-dollar-box-line" />
-                <div className="w-4 h-4">
-                  <i className="ri-money-dollar-box-line"></i>
-                </div>
-              </Label>
-            </RadioGroup>
-          </div>
-
-          <Label className="text-sm mr-4">Icon Color:</Label>
-          <div className="flex flex-row flex-wrap md:flex-nowrap items-center space-x-4 space-y-2 md:space-y-0 col-span-2 mt-4">
-            <RadioGroup
-              value={account.iconColor}
-              onValueChange={() => {}}
-              className="flex flex-row flex-wrap gap-2"
-            >
-              <Label className="flex items-center space-x-2 mb-2">
-                <RadioGroupItem value="green" />
-                <div className="w-4 h-4 bg-green-600 border-1"></div>
-                <RadioGroupItem value="blue" />
-                <div className="w-4 h-4 bg-blue-600 border-1"></div>
-                <RadioGroupItem value="purple" />
-                <div className="w-4 h-4 bg-purple-600 border-1"></div>
-                <RadioGroupItem value="yellow" />
-                <div className="w-4 h-4 bg-yellow-600 border-1"></div>
-              </Label>
-              <Label className="flex items-center space-x-2 mb-2">
-                <RadioGroupItem value="red" />
-                <div className="w-4 h-4 bg-red-600 border-1"></div>
-                <RadioGroupItem value="pink" />
-                <div className="w-4 h-4 bg-pink-600 border-1"></div>
-                <RadioGroupItem value="indigo" />
-                <div className="w-4 h-4 bg-indigo-600 border-1"></div>
-                <RadioGroupItem value="gray" />
-                <div className="w-4 h-4 bg-gray-600 border-1"></div>
-              </Label>
-            </RadioGroup>
-          </div>
-
-          <Label className="text-sm mr-4">Background Color:</Label>
-          <div className="flex flex-row flex-wrap md:flex-nowrap items-center space-x-4 space-y-2 md:space-y-0 col-span-2 mt-4">
-            <RadioGroup
-              value={account.iconBgColor}
-              onValueChange={(value) => {}}
-              className="flex flex-row flex-wrap gap-2"
-            >
-              <Label className="flex items-center space-x-2 mb-2">
-                <RadioGroupItem value="green" />
-                <div className="w-4 h-4 bg-green-100 border-1"></div>
-                <RadioGroupItem value="blue" />
-                <div className="w-4 h-4 bg-blue-100 border-1"></div>
-                <RadioGroupItem value="purple" />
-                <div className="w-4 h-4 bg-purple-100 border-1"></div>
-                <RadioGroupItem value="yellow" />
-                <div className="w-4 h-4 bg-yellow-100 border-1"></div>
-              </Label>
-              <Label className="flex items-center space-x-2 mb-2">
-                <RadioGroupItem value="red" />
-                <div className="w-4 h-4 bg-red-100 border-1"></div>
-                <RadioGroupItem value="pink" />
-                <div className="w-4 h-4 bg-pink-100 border-1"></div>
-                <RadioGroupItem value="indigo" />
-                <div className="w-4 h-4 bg-indigo-100 border-1"></div>
-                <RadioGroupItem value="gray" />
-                <div className="w-4 h-4 bg-gray-100 border-1"></div>
-              </Label>
-            </RadioGroup>
-            {/* <input
-              type="color"
-              value={"#000000"}
-              className="w-10 h-10 border rounded"
-              onChange={() => {}}
-              disabled
-            /> */}
-          </div>
-
-          <Label className="text-sm mr-4">Primary account:</Label>
-          <div className="flex flex-row items-start space-x-3 rounded-md border p-4 col-span-9 mt-4">
-            <Checkbox
-              checked={account.isPrimary}
-              onCheckedChange={(checked) => {}}
-            />
-            <div className="leading-none">
-              <p className="text-sm">Set this to primary account.</p>
-            </div>
-          </div>
-
-          <NavLink to="/accounts">
-            <Button
-              className="m-4 ml-0 w-full"
-              variant="outline"
-              size="sm"
-              onClick={() => {}}
-            >
-              <i className="ri-arrow-left-line mr-2"></i>
-              Back
-            </Button>
-          </NavLink>
-          <Button
-            className="m-4 w-full"
-            variant="default"
-            size="sm"
-            onClick={() => {}}
-            disabled
-          >
-            <i className="ri-save-line mr-2"></i>
-            Save
-          </Button>
-        </form>
         <div className="my-4 text-2xl">
           Transactions made with{" "}
           <span className="text-primary">{account.name}</span>

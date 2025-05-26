@@ -21,6 +21,7 @@ import { Checkbox } from "~/components/ui/checkbox";
 import { Label } from "~/components/ui/label";
 import { cn } from "~/lib/utils";
 import type { Account, Category } from "~/types/api";
+import { useEffect } from "react";
 
 interface TransactionFormProps {
   isOpen: boolean;
@@ -59,6 +60,24 @@ export function TransactionForm({
     isRecurring: false,
   });
 
+  useEffect(() => {
+    if (isOpen) {
+      setFormDetails({
+        accountId: "",
+        description: "",
+        amount: "0",
+        type: "",
+        categoryId: "",
+        date: {
+          iso: new Date().toISOString().split("T")[0],
+          time: new Date().toTimeString().slice(0, 5),
+        },
+        remarks: "",
+        isRecurring: false,
+      });
+    }
+  }, [isOpen]);
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[525px]">
@@ -81,7 +100,7 @@ export function TransactionForm({
                 onClick={() =>
                   setFormDetails((prev) => ({ ...prev, accountId: account.id }))
                 }
-                className={`p-2 border rounded-md cursor-pointer transition-colors flex items-center space-x-3`}
+                className={`p-2 border rounded-md cursor-pointer transition-colors flex items-center space-x-3 ${formDetails.accountId === account.id ? "border-primary" : "border-gray-200"}`}
               >
                 <div
                   className={`flex-shrink-0 w-8 h-8 rounded-md ${
@@ -205,6 +224,7 @@ export function TransactionForm({
                 <Input
                   type="date"
                   value={formDetails.date.iso}
+                  className="cursor-pointer"
                   onChange={(e) =>
                     setFormDetails((prev) => ({
                       ...prev,
@@ -220,6 +240,7 @@ export function TransactionForm({
                 <Input
                   type="time"
                   value={formDetails.date.time}
+                  className="cursor-pointer"
                   onChange={(e) => {
                     const date = new Date();
                     const [hours, minutes] = e.target.value
@@ -236,18 +257,6 @@ export function TransactionForm({
                   }}
                 />
               </div>
-
-              {/* <Label className={cn(false && "text-destructive")}>
-                Merchant
-              </Label>
-              <Input
-                placeholder="E.g., Amazon"
-                className="mt-2"
-                onChange={() => {}}
-                onBlur={() => {}}
-                value={""}
-                name={""}
-              /> */}
 
               <div className="space-y-2 flex flex-row items-start space-x-3 rounded-md border p-4">
                 <Checkbox checked={true} onCheckedChange={(checked) => {}} />

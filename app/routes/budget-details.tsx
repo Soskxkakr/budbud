@@ -1,6 +1,6 @@
 import { Button } from "~/components/ui/button";
 import type { Route } from "./+types/budget";
-import { accounts, budgets, categories } from "~/data/dummy-data";
+import { accounts, budgets, categories, transactions } from "~/data/dummy-data";
 import type { Budget } from "~/types/api";
 import { NavLink } from "react-router";
 import { Label } from "recharts";
@@ -12,8 +12,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table";
+import { formatCurrency, formatDateToLocalString } from "~/lib/utils";
+import type { Transaction } from "~/types/api";
+import { Badge } from "~/components/ui/badge";
 
-export const loader = async ({ params }: Route.LoaderArgs): Promise<{ budget: Budget } | null> => {
+export const loader = async ({ params }: Route.LoaderArgs): Promise<{ budget: Budget, budgetTransactions: Transaction[] } | null> => {
   const { budgetId } = params;
 
   if (!budgetId) return null;
@@ -22,11 +26,15 @@ export const loader = async ({ params }: Route.LoaderArgs): Promise<{ budget: Bu
 
   if (!budget) return null;
 
-  return Promise.resolve({ budget });
+  const budgetTransactions = transactions.filter(
+    (transaction) => transaction.categoryId === budget.categoryId
+  );
+
+  return Promise.resolve({ budget, budgetTransactions });
 };
 
-const BudgetDetails = ({ loaderData }: { loaderData: { budget: Budget } }) => {
-  const { budget } = loaderData;
+const BudgetDetails = ({ loaderData }: { loaderData: { budget: Budget, budgetTransactions: Transaction[] } }) => {
+  const { budget, budgetTransactions } = loaderData;
 
   return (
     <>
@@ -223,9 +231,48 @@ const BudgetDetails = ({ loaderData }: { loaderData: { budget: Budget } }) => {
             <Button variant="outline">
               <NavLink to="/budgets">Cancel</NavLink>
             </Button>
-            <Button type="submit">Create Budget</Button>
+            <Button type="submit">Update Budget</Button>
           </div>
         </form>
+
+        <div className="mt-4 p-4">
+          <h2 className="text-xl font-medium text-gray-900">Logs</h2>
+          <div className="mt-2">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Account</TableHead>
+                  <TableHead>Description</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {budgetTransactions.map((transaction) => (
+                  <TableRow key={transaction.id}>
+                    <TableCell>{formatDateToLocalString(transaction.date)}</TableCell>
+                    <TableCell>
+                      <Badge>
+                        {accounts.find((account) => account.id === transaction.accountId)?.name}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <p className="text-red-500">-{formatCurrency(transaction.amount)}</p>
+                      <p>{transaction.description}</p>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                <TableRow>
+                    <TableCell>{formatDateToLocalString(new Date().toDateString())}</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>
+                      <p>Budget Created</p>
+                    </TableCell>
+                  </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+
       </div>
     </>
   );

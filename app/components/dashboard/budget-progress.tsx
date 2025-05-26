@@ -21,7 +21,7 @@ const BudgetProgress = ({
         <NavLink to="/budgets">
           <Button
             variant="link"
-            className="text-sm font-medium text-primary hover:text-primary-dark"
+            className="text-sm font-medium text-primary hover:text-primary-dark cursor-pointer"
           >
             View All
           </Button>
