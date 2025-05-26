@@ -51,6 +51,9 @@ export const accounts: Account[] = [
     balance: 10000,
     currency: "MYR",
     isPrimary: true,
+    icon: "ri-bank-line",
+    iconColor: "green",
+    iconBgColor: "green",
   },
   {
     id: "2",
@@ -60,6 +63,9 @@ export const accounts: Account[] = [
     balance: 5000,
     currency: "MYR",
     isPrimary: false,
+    icon: "ri-safe-2-line",
+    iconColor: "blue",
+    iconBgColor: "blue",
   },
   {
     id: "3",
@@ -69,6 +75,9 @@ export const accounts: Account[] = [
     balance: -2000,
     currency: "MYR",
     isPrimary: false,
+    icon: "ri-bank-card-line",
+    iconColor: "purple",
+    iconBgColor: "purple",
   },
 ];
 
@@ -76,9 +85,11 @@ export const budgets: Budget[] = [
   {
     id: "1",
     userId: "123",
+    name: "Groceries",
     categoryId: "1",
     amount: 500,
     spent: 200,
+    currency: "MYR",
     period: "2023",
     startDate: "2023-01-01",
     endDate: "2023-12-31",
@@ -86,9 +97,11 @@ export const budgets: Budget[] = [
   {
     id: "2",
     userId: "123",
+    name: "Fuel",
     categoryId: "2",
     amount: 300,
     spent: 100,
+    currency: "MYR",
     period: "2023",
     startDate: "2023-01-01",
     endDate: "2023-12-31",
@@ -96,9 +109,11 @@ export const budgets: Budget[] = [
   {
     id: "3",
     userId: "123",
+    name: "Shopping",
     categoryId: "3",
     amount: 700,
     spent: 400,
+    currency: "MYR",
     period: "2023",
     startDate: "2023-01-01",
     endDate: "2023-12-31",

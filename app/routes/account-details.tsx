@@ -52,36 +52,6 @@ const AccountDetails = ({
     accountTransactions: Transaction[];
   };
 }) => {
-  const getAccountIcon = (type: string) => {
-    switch (type) {
-      case "checking":
-        return "ri-bank-line";
-      case "savings":
-        return "ri-safe-2-line";
-      case "credit":
-        return "ri-bank-card-line";
-      case "cash":
-        return "ri-money-dollar-box-line";
-      default:
-        return "ri-wallet-3-line";
-    }
-  };
-
-  const getAccountColorClass = (type: string) => {
-    switch (type) {
-      case "checking":
-        return "bg-blue-100 text-blue-600";
-      case "savings":
-        return "bg-green-100 text-green-600";
-      case "credit":
-        return "bg-purple-100 text-purple-600";
-      case "cash":
-        return "bg-yellow-100 text-yellow-600";
-      default:
-        return "bg-gray-100 text-gray-600";
-    }
-  };
-
   const { account, accountTransactions } = loaderData;
 
   return (
@@ -89,11 +59,11 @@ const AccountDetails = ({
       <div className="px-4 sm:px-6 md:px-8">
         <div className="flex items-center space-x-2">
           <div
-            className={`h-16 w-16 rounded-full ${getAccountColorClass(
-              account.type
-            )} flex items-center justify-center`}
+            className={`h-16 w-16 rounded-full bg-${account.iconBgColor}-100 flex items-center justify-center`}
           >
-            <i className={`${getAccountIcon(account.type)} text-3xl`}></i>
+            <i
+              className={`${account.icon} text-${account.iconColor}-600 text-3xl`}
+            ></i>
           </div>
           <div className="ml-2 text-3xl">{account.name}</div>
         </div>
@@ -179,7 +149,11 @@ const AccountDetails = ({
           <Label className="text-sm mr-4">Customization:</Label>
           <Label className="text-sm mr-4">Icon:</Label>
           <div className="flex flex-row flex-wrap md:flex-nowrap items-center space-x-4 space-y-2 md:space-y-0 col-span-2 mt-4">
-            <RadioGroup className="flex flex-row flex-wrap gap-2">
+            <RadioGroup
+              value={account.icon}
+              onValueChange={() => {}}
+              className="flex flex-row flex-wrap gap-2"
+            >
               <Label className="flex items-center space-x-2 mb-2">
                 <RadioGroupItem value="ri-bank-line" />
                 <div className="w-4 h-4">
@@ -203,25 +177,29 @@ const AccountDetails = ({
 
           <Label className="text-sm mr-4">Icon Color:</Label>
           <div className="flex flex-row flex-wrap md:flex-nowrap items-center space-x-4 space-y-2 md:space-y-0 col-span-2 mt-4">
-            <RadioGroup className="flex flex-row flex-wrap gap-2">
+            <RadioGroup
+              value={account.iconColor}
+              onValueChange={() => {}}
+              className="flex flex-row flex-wrap gap-2"
+            >
               <Label className="flex items-center space-x-2 mb-2">
-                <RadioGroupItem value="bg-green-600" />
+                <RadioGroupItem value="green" />
                 <div className="w-4 h-4 bg-green-600 border-1"></div>
-                <RadioGroupItem value="bg-blue-600" />
+                <RadioGroupItem value="blue" />
                 <div className="w-4 h-4 bg-blue-600 border-1"></div>
-                <RadioGroupItem value="bg-purple-600" />
+                <RadioGroupItem value="purple" />
                 <div className="w-4 h-4 bg-purple-600 border-1"></div>
-                <RadioGroupItem value="bg-yellow-600" />
+                <RadioGroupItem value="yellow" />
                 <div className="w-4 h-4 bg-yellow-600 border-1"></div>
               </Label>
               <Label className="flex items-center space-x-2 mb-2">
-                <RadioGroupItem value="bg-red-600" />
+                <RadioGroupItem value="red" />
                 <div className="w-4 h-4 bg-red-600 border-1"></div>
-                <RadioGroupItem value="bg-pink-600" />
+                <RadioGroupItem value="pink" />
                 <div className="w-4 h-4 bg-pink-600 border-1"></div>
-                <RadioGroupItem value="bg-indigo-600" />
+                <RadioGroupItem value="indigo" />
                 <div className="w-4 h-4 bg-indigo-600 border-1"></div>
-                <RadioGroupItem value="bg-yellow-600" />
+                <RadioGroupItem value="gray" />
                 <div className="w-4 h-4 bg-gray-600 border-1"></div>
               </Label>
             </RadioGroup>
@@ -229,25 +207,29 @@ const AccountDetails = ({
 
           <Label className="text-sm mr-4">Background Color:</Label>
           <div className="flex flex-row flex-wrap md:flex-nowrap items-center space-x-4 space-y-2 md:space-y-0 col-span-2 mt-4">
-            <RadioGroup className="flex flex-row flex-wrap gap-2">
+            <RadioGroup
+              value={account.iconBgColor}
+              onValueChange={(value) => {}}
+              className="flex flex-row flex-wrap gap-2"
+            >
               <Label className="flex items-center space-x-2 mb-2">
-                <RadioGroupItem value="bg-green-100" />
+                <RadioGroupItem value="green" />
                 <div className="w-4 h-4 bg-green-100 border-1"></div>
-                <RadioGroupItem value="bg-blue-100" />
+                <RadioGroupItem value="blue" />
                 <div className="w-4 h-4 bg-blue-100 border-1"></div>
-                <RadioGroupItem value="bg-purple-100" />
+                <RadioGroupItem value="purple" />
                 <div className="w-4 h-4 bg-purple-100 border-1"></div>
-                <RadioGroupItem value="bg-yellow-100" />
+                <RadioGroupItem value="yellow" />
                 <div className="w-4 h-4 bg-yellow-100 border-1"></div>
               </Label>
               <Label className="flex items-center space-x-2 mb-2">
-                <RadioGroupItem value="bg-red-100" />
+                <RadioGroupItem value="red" />
                 <div className="w-4 h-4 bg-red-100 border-1"></div>
-                <RadioGroupItem value="bg-pink-100" />
+                <RadioGroupItem value="pink" />
                 <div className="w-4 h-4 bg-pink-100 border-1"></div>
-                <RadioGroupItem value="bg-indigo-100" />
+                <RadioGroupItem value="indigo" />
                 <div className="w-4 h-4 bg-indigo-100 border-1"></div>
-                <RadioGroupItem value="bg-yellow-100" />
+                <RadioGroupItem value="gray" />
                 <div className="w-4 h-4 bg-gray-100 border-1"></div>
               </Label>
             </RadioGroup>

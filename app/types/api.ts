@@ -13,14 +13,19 @@ export interface Account {
   balance: number;
   currency: string;
   isPrimary: boolean;
+  icon: string;
+  iconColor: string;
+  iconBgColor: string;
 }
 
 export interface Budget {
   id: string;
   userId: string;
+  name: string;
   categoryId: string;
   amount: number;
   spent: number;
+  currency: string;
   period: string;
   startDate: string;
   endDate: string;

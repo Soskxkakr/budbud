@@ -1,3 +1,4 @@
+import { NavLink } from "react-router";
 import {
   Card,
   CardContent,
@@ -27,47 +28,15 @@ const AccountCard = ({
   showTransferModal: () => void;
   showToast: () => void;
 }) => {
-  const getAccountIcon = (type: string) => {
-    switch (type) {
-      case "checking":
-        return "ri-bank-line";
-      case "savings":
-        return "ri-safe-2-line";
-      case "credit":
-        return "ri-bank-card-line";
-      case "cash":
-        return "ri-money-dollar-box-line";
-      default:
-        return "ri-wallet-3-line";
-    }
-  };
-
-  const getAccountColorClass = (type: string) => {
-    switch (type) {
-      case "checking":
-        return "bg-blue-100 text-blue-600";
-      case "savings":
-        return "bg-green-100 text-green-600";
-      case "credit":
-        return "bg-purple-100 text-purple-600";
-      case "cash":
-        return "bg-yellow-100 text-yellow-600";
-      default:
-        return "bg-gray-100 text-gray-600";
-    }
-  };
-
   return (
     <Card className="transition-all duration-300 hover:shadow-md hover:-translate-y-1">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div
-              className={`h-8 w-8 rounded-full ${getAccountColorClass(
-                account.type
-              )} flex items-center justify-center`}
+              className={`h-8 w-8 rounded-full bg-${account.iconBgColor}-100 text-${account.iconColor}-600 flex items-center justify-center`}
             >
-              <i className={getAccountIcon(account.type)}></i>
+              <i className={`${account.icon}`}></i>
             </div>
             <CardTitle>{account.name}</CardTitle>
             {account.isPrimary && <Badge>Primary</Badge>}
@@ -80,10 +49,7 @@ const AccountCard = ({
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem className="cursor-pointer">
-                Edit
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                Duplicate
+                <NavLink to={`/accounts/${account.id}`}>Edit</NavLink>
               </DropdownMenuItem>
               {!account.isPrimary && (
                 <>
