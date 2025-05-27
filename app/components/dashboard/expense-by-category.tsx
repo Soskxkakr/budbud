@@ -39,6 +39,7 @@ export function ExpenseByCategory({ expenseData }: ExpenseByCategoryProps) {
     name: item.category.name,
     value: item.total,
     color: item.category.color || chartColors[index % chartColors.length],
+    icon: item.category.icon,
   }));
 
   return (
@@ -81,7 +82,7 @@ export function ExpenseByCategory({ expenseData }: ExpenseByCategoryProps) {
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(value: number) => formatCurrency(value)}
+                  formatter={(value: number) => formatCurrency(value, "MYR")}
                   labelFormatter={(name) => `Category: ${name}`}
                 />
               </PieChart>
@@ -95,13 +96,14 @@ export function ExpenseByCategory({ expenseData }: ExpenseByCategoryProps) {
               <div className="flex items-center">
                 <div
                   style={{ backgroundColor: item.color }}
-                  className="w-4 h-4 rounded-full mr-2"
-                ></div>
+                  className="w-4 h-4 flex items-center justify-center rounded-full mr-2"
+                >
+                </div>
                 <span className="text-sm text-gray-600">{item.name}</span>
               </div>
               <div className="flex items-center">
                 <span className="text-sm font-medium text-gray-900">
-                  {formatCurrency(item.value)}
+                  {formatCurrency(item.value, "MYR")}
                 </span>
                 <span className="text-sm text-gray-500 ml-1">
                   (

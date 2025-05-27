@@ -115,7 +115,7 @@ const TransferForm = ({
               <Label className={cn(false && "text-destructive")}>Amount</Label>
               <div className="relative rounded-md shadow-sm my-2">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <span className="text-gray-500 sm:text-sm">$</span>
+                  <span className="text-gray-500 sm:text-sm">MYR</span>
                 </div>
                 <Input
                   placeholder="0.00"

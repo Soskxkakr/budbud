@@ -19,6 +19,13 @@ export function RecentTransactions({
   transactions,
   categories,
 }: RecentTransactionData) {
+  const filteredTransactions = transactions.sort((a, b) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+
+    return dateB - dateA;
+  });
+
   return (
     <Card>
       <CardHeader className="flex items-center justify-between p-5 border-b border-gray-200">
@@ -49,7 +56,7 @@ export function RecentTransactions({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {transactions.length === 0 ? (
+              {filteredTransactions.length === 0 ? (
                 <TableRow>
                   <TableCell
                     colSpan={5}
@@ -59,7 +66,7 @@ export function RecentTransactions({
                   </TableCell>
                 </TableRow>
               ) : (
-                transactions.map((transaction) => {
+                filteredTransactions.map((transaction) => {
                   const category = categories.find(
                     (c) => c.id === transaction.categoryId
                   );
@@ -94,13 +101,8 @@ export function RecentTransactions({
                       </TableCell>
                       <TableCell>
                         <Badge
-                          variant={
-                            isIncome
-                              ? "success"
-                              : category?.name === "Entertainment"
-                              ? "purple"
-                              : "info"
-                          }
+                          className="text-xs"
+                          style={{ backgroundColor: category?.color || "#ccc" }}
                         >
                           {category?.name || "Uncategorized"}
                         </Badge>
@@ -114,7 +116,7 @@ export function RecentTransactions({
                         }`}
                       >
                         {isIncome ? "+" : "-"}
-                        {formatCurrency(transaction.amount)}
+                        {formatCurrency(transaction.amount, "MYR")}
                       </TableCell>
                       <TableCell className="text-right">
                         <DropdownMenu>

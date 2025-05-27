@@ -10,6 +10,7 @@ import {
 import { Input } from "~/components/ui/input";
 import { accounts, categories } from "~/data/dummy-data";
 import { NavLink } from "react-router";
+import { CURRENCIES } from "~/data/constants";
 
 // https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png
 
@@ -81,7 +82,11 @@ const BudgetNew = () => {
                 <SelectValue placeholder="Select currency" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="MYR">Malaysian Ringgit (MYR)</SelectItem>
+                {CURRENCIES.map((currency) => (
+                  <SelectItem key={currency.code} value={currency.code}>
+                    {currency.name} ({currency.code})
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

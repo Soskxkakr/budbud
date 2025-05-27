@@ -59,8 +59,8 @@ const BudgetProgress = ({
                       isOverBudget ? "text-red-500" : "text-gray-500"
                     }`}
                   >
-                    {formatCurrency(budget.spent)} /{" "}
-                    {formatCurrency(budget.amount)}
+                    {formatCurrency(budget.spent, budget.currency)} /{" "}
+                    {formatCurrency(budget.amount, budget.currency)}
                   </span>
                 </div>
                 <Progress

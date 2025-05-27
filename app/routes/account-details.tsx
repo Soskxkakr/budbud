@@ -23,7 +23,7 @@ import {
 } from "~/components/ui/table";
 import { formatCurrency, formatDateToLocalString } from "~/lib/utils";
 import { Badge } from "~/components/ui/badge";
-import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
+import { COLORS, CURRENCIES, ICONS } from "~/data/constants";
 
 export async function loader({ params }: Route.LoaderArgs): Promise<{
   account: Account;
@@ -144,7 +144,11 @@ const AccountDetails = ({
                     <SelectValue placeholder="Select currency" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="MYR">Malaysian Ringgit (MYR)</SelectItem>
+                    {CURRENCIES.map((currency) => (
+                      <SelectItem key={currency.code} value={currency.code}>
+                        {currency.name} ({currency.code})
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -158,26 +162,13 @@ const AccountDetails = ({
                     <SelectValue placeholder="Select icon" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="ri-bank-line">
-                      <div className="w-4 h-4">
-                        <i className="ri-bank-line"></i>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="ri-safe-2-line">
-                      <div className="w-4 h-4">
-                        <i className="ri-safe-2-line"></i>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="ri-bank-card-line">
-                      <div className="w-4 h-4">
-                        <i className="ri-bank-card-line"></i>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="ri-money-dollar-box-line">
-                      <div className="w-4 h-4">
-                        <i className="ri-money-dollar-box-line"></i>
-                      </div>
-                    </SelectItem>
+                    {ICONS.map((icon) => (
+                      <SelectItem key={icon} value={icon}>
+                        <div className="w-4 h-4">
+                          <i className={icon}></i>
+                        </div>
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -191,30 +182,11 @@ const AccountDetails = ({
                     <SelectValue placeholder="Select icon color" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="green">
-                      <div className="w-4 h-4 bg-green-600 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="blue">
-                      <div className="w-4 h-4 bg-blue-600 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="purple">
-                      <div className="w-4 h-4 bg-purple-600 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="yellow">
-                      <div className="w-4 h-4 bg-yellow-600 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="red">
-                      <div className="w-4 h-4 bg-red-600 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="pink">
-                      <div className="w-4 h-4 bg-pink-600 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="indigo">
-                      <div className="w-4 h-4 bg-indigo-600 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="gray">
-                      <div className="w-4 h-4 bg-gray-600 border-1"></div>
-                    </SelectItem>
+                    {COLORS.map((color) => (
+                      <SelectItem key={color} value={color}>
+                        <div className={`w-4 h-4 bg-${color}-600 border-1`} />
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -228,27 +200,11 @@ const AccountDetails = ({
                     <SelectValue placeholder="Select icon background color" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="green">
-                      <div className="w-4 h-4 bg-green-100 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="blue">
-                      <div className="w-4 h-4 bg-blue-100 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="purple">
-                      <div className="w-4 h-4 bg-purple-100 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="yellow">
-                      <div className="w-4 h-4 bg-yellow-100 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="pink">
-                      <div className="w-4 h-4 bg-pink-100 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="indigo">
-                      <div className="w-4 h-4 bg-indigo-100 border-1"></div>
-                    </SelectItem>
-                    <SelectItem value="gray">
-                      <div className="w-4 h-4 bg-gray-100 border-1"></div>
-                    </SelectItem>
+                    {COLORS.map((color) => (
+                      <SelectItem key={color} value={color}>
+                        <div className={`w-4 h-4 bg-${color}-100 border-1`} />
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

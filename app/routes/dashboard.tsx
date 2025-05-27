@@ -11,10 +11,10 @@ import {
   accounts,
   categories,
   budgets,
-  expensesByCategory,
   transactions,
   spendings,
 } from "~/data/dummy-data";
+import type { Category } from "~/types/api";
 
 const Dashboard = () => {
   const [showTransactionModal, setShowTransactionModal] = useState(false);
@@ -48,6 +48,7 @@ const Dashboard = () => {
           <SummaryCard
             title="Total Balance"
             value={10000}
+            currency="MYR"
             percentChange={3.4}
             icon={<Wallet />}
             iconBgClass="bg-blue-100"
@@ -56,6 +57,7 @@ const Dashboard = () => {
           <SummaryCard
             title="Monthly Income"
             value={20000}
+            currency="MYR"
             percentChange={2.1}
             icon={<ArrowDownCircle />}
             iconBgClass="bg-green-100"
@@ -64,6 +66,7 @@ const Dashboard = () => {
           <SummaryCard
             title="Monthly Expenses"
             value={6000}
+            currency="MYR"
             percentChange={-4.3}
             icon={<ArrowUpCircle />}
             iconBgClass="bg-red-100"
@@ -73,6 +76,7 @@ const Dashboard = () => {
           <SummaryCard
             title="Total Savings"
             value={20000}
+            currency="MYR"
             percentChange={8.2}
             icon={<Banknote />}
             iconBgClass="bg-purple-100"
@@ -104,7 +108,26 @@ const Dashboard = () => {
 
           {/* Expense by Category */}
           <div className="lg:col-span-1">
-            <ExpenseByCategory expenseData={expensesByCategory} />
+            <ExpenseByCategory
+              expenseData={
+                transactions
+                  .filter((t) => t.type === "expense" && !!t.categoryId)
+                  .reduce((acc, t) => {
+                    const category = categories.find((c) => c.id === t.categoryId);
+                    const existingCategory = acc.find((a) => a.category.name === category?.name);
+                    if (existingCategory) {
+                      existingCategory.total += t.amount;
+                    } else {
+                      acc.push({
+                        category: category!,
+                        total: t.amount,
+                      });
+                    }
+                    return acc;
+                  }, [] as { category: Category; total: number }[])
+                  .sort((a, b) => b.total - a.total)
+              }
+            />
           </div>
         </div>
       </div>

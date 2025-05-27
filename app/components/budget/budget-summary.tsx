@@ -33,19 +33,19 @@ const BudgetSummary = ({totalBudget, totalSpent}: {totalBudget: number, totalSpe
             <div className="p-4 bg-gray-50 rounded-lg">
               <div className="text-sm text-gray-500 mb-1">Total Budget</div>
               <div className="text-2xl font-bold text-gray-900">
-                {formatCurrency(totalBudget)}
+                {formatCurrency(totalBudget, "MYR")}
               </div>
             </div>
             <div className="p-4 bg-gray-50 rounded-lg">
               <div className="text-sm text-gray-500 mb-1">Total Spent</div>
               <div className="text-2xl font-bold text-gray-900">
-                {formatCurrency(totalSpent)}
+                {formatCurrency(totalSpent, "MYR")} 
               </div>
             </div>
             <div className="p-4 bg-gray-50 rounded-lg">
               <div className="text-sm text-gray-500 mb-1">Remaining</div>
               <div className="text-2xl font-bold text-gray-900">
-                {formatCurrency(totalBudget - totalSpent)}
+                {formatCurrency(totalBudget - totalSpent, "MYR")}
               </div>
             </div>
             <div className="p-4 bg-gray-50 rounded-lg">
@@ -61,8 +61,8 @@ const BudgetSummary = ({totalBudget, totalSpent}: {totalBudget: number, totalSpe
                 Budget Usage
               </span>
               <span className="text-sm text-gray-500">
-                {formatCurrency(totalSpent)} of{" "}
-                {formatCurrency(totalBudget)}
+                {formatCurrency(totalSpent, "MYR")} of{" "}
+                {formatCurrency(totalBudget, "MYR")}
               </span>
             </div>
             <Progress

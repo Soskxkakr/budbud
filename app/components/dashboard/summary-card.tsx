@@ -32,7 +32,7 @@ const SummaryCard = ({
 							</dt>
 							<dd className="flex items-baseline">
 								<div className="text-2xl font-semibold text-gray-900">
-									{currency || "MYR"} {formatCurrency(value, currency)}
+									{formatCurrency(value, currency)}
 								</div>
 								{percentChange !== undefined && (
 									<div

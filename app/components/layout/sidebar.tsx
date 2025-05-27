@@ -66,6 +66,13 @@ const Sidebar = () => {
           </nav>
         </div>
         <div className="flex-shrink-0 p-4 border-t border-gray-200">
+          <div className="flex justify-center items-center">
+            <a target="_blank" href="https://www.buymeacoffee.com/soskxkakr">
+              <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" />
+            </a>
+          </div>
+        </div>
+        <div className="flex-shrink-0 p-4 border-t border-gray-200">
           <div className="flex items-center">
             <div>
               <div className="h-9 w-9 rounded-full bg-primary-light text-white flex items-center justify-center">

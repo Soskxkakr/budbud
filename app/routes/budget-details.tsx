@@ -16,6 +16,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~
 import { formatCurrency, formatDateToLocalString } from "~/lib/utils";
 import type { Transaction } from "~/types/api";
 import { Badge } from "~/components/ui/badge";
+import { CURRENCIES } from "~/data/constants";
 
 export const loader = async ({ params }: Route.LoaderArgs): Promise<{ budget: Budget, budgetTransactions: Transaction[] } | null> => {
   const { budgetId } = params;
@@ -108,7 +109,11 @@ const BudgetDetails = ({ loaderData }: { loaderData: { budget: Budget, budgetTra
                 <SelectValue placeholder="Select currency" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="MYR">Malaysian Ringgit (MYR)</SelectItem>
+                {CURRENCIES.map((currency) => (
+                  <SelectItem key={currency.code} value={currency.code}>
+                    {currency.name} ({currency.code})
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

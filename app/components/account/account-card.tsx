@@ -39,7 +39,9 @@ const AccountCard = ({
               <i className={`${account.icon}`}></i>
             </div>
             <CardTitle>{account.name}</CardTitle>
-            {account.isPrimary && <Badge>Primary</Badge>}
+            {account.isPrimary && (
+              <Badge className="text-xs ml-2 mt-1 font-medium hover:cursor-default">Primary</Badge>
+            )}
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger>

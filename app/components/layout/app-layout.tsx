@@ -26,6 +26,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         >
           <ToastProvider>
             <ToastViewport />
+            <div className="mx-4 mt-4 p-4 text-center bg-blue-300 text-blue-600 font-medium rounded-lg sticky top-4 z-50">
+              <i className="ri-information-line mr-2"></i>
+              You are in development server. Data provided are for testing purposes and will be purged in the next 24 hours.
+            </div>
             {children}
           </ToastProvider>
         </main>
