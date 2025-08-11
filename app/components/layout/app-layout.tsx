@@ -1,29 +1,50 @@
-import Sidebar from "~/components/layout/sidebar";
-import UserNav from "~/components/layout/user-nav";
-import MobileNav from "~/components/layout/mobile-nav";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router";
+import Sidebar from "./sidebar";
+import UserNav from "./user-nav";
+import MobileNav from "./mobile-nav";
+import AuthLayout from "./auth-layout";
 import { ToastProvider, ToastViewport } from "~/components/ui/toast";
-import { useIsMobile } from "~/hooks/use-mobile";
 
-const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  const isMobile = useIsMobile();
+interface AppLayoutProps {
+  children: React.ReactNode;
+}
 
-  // Set mobile padding to account for bottom navigation
-  const mobilePaddingClass = isMobile ? "pb-16" : "";
-
+const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // TODO: Replace with actual auth state management
+  const [userData, setUserData] = useState(null);
+  
+  // Authentication routes that don't require navigation
+  const authRoutes = ["/signin", "/signup"];
+  const isAuthRoute = authRoutes.includes(location.pathname);
+  
+  // Redirect logic
+  useEffect(() => {
+    if (!userData && !isAuthRoute) {
+      // User not authenticated and trying to access protected route
+      // navigate("/signin");
+    } else if (userData && isAuthRoute) {
+      // User authenticated but on auth route, redirect to dashboard
+      // navigate("/");
+    }
+  }, [userData, isAuthRoute, navigate]);
+  
+  // If user is not authenticated, show auth layout
+  if (!userData) {
+    return <AuthLayout>{children}</AuthLayout>;
+  }
+  
+  // If user is authenticated, show full layout with navigation
   return (
-    <div className="flex h-screen overflow-hidden bg-secondary-light">
-      {/* Desktop Sidebar */}
+    <div className="flex h-screen bg-gray-100">
       <Sidebar />
-
-      {/* Main Content */}
-      <div className="flex flex-col flex-1 overflow-hidden">
-        {/* Top Navigation Bar (Mobile only) */}
+      <div className="flex-1 flex flex-col overflow-hidden">
         <UserNav />
-
-        {/* Main Content Container */}
-        <main
-          className={`flex-1 relative overflow-y-auto focus:outline-none ${mobilePaddingClass}`}
-        >
+        <MobileNav />
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
           <ToastProvider>
             <ToastViewport />
             <div className="mx-4 mt-4 p-4 text-center bg-blue-300 text-blue-600 font-medium rounded-lg sticky top-4 z-50">
@@ -34,9 +55,6 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           </ToastProvider>
         </main>
       </div>
-
-      {/* Mobile Bottom Navigation */}
-      <MobileNav />
     </div>
   );
 };

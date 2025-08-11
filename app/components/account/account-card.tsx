@@ -50,9 +50,11 @@ const AccountCard = ({
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem className="cursor-pointer">
-                <NavLink to={`/accounts/${account.id}`}>Edit</NavLink>
-              </DropdownMenuItem>
+              <NavLink to={`/accounts/${account.id}`}>
+                <DropdownMenuItem className="cursor-pointer">
+                  Edit
+                </DropdownMenuItem>
+              </NavLink>
               {!account.isPrimary && (
                 <>
                   <DropdownMenuSeparator />

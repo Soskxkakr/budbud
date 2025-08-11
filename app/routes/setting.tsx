@@ -43,11 +43,13 @@ const Setting = () => {
 
         {/* Settings Tabs */}
         <Tabs defaultValue="profile" className="mb-6">
-          <TabsList className="grid w-full grid-cols-4 sm:w-[600px]">
+          <TabsList className="grid w-full grid-cols-6 sm:w-[800px]">
             <TabsTrigger value="profile">Profile</TabsTrigger>
             <TabsTrigger value="notifications">Notifications</TabsTrigger>
             <TabsTrigger value="preferences">Preferences</TabsTrigger>
             <TabsTrigger value="security">Security</TabsTrigger>
+            <TabsTrigger value="webhooks">Webhooks</TabsTrigger>
+            <TabsTrigger value="support">Support</TabsTrigger>
           </TabsList>
 
           {/* Profile Tab */}
@@ -414,6 +416,60 @@ const Setting = () => {
                   >
                     <i className="ri-delete-bin-line mr-2"></i>
                     Delete Account
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Security Tab */}
+          <TabsContent value="webhooks">
+            <Card>
+              <CardHeader>
+                <CardTitle>Webhooks</CardTitle>
+                <CardDescription>
+                  Manage your account security and authentication options
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-4">
+                  <h3 className="text-lg font-medium">Webhooks</h3>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="webhookUrl">Webhook URL</Label>
+                    <Input id="webhookUrl" type="url" />
+                  </div>
+
+                  <Button size="sm">
+                    <i className="ri-lock-line mr-2"></i>
+                    Update Webhook
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Support Tab */}
+          <TabsContent value="support">
+            <Card>
+              <CardHeader>
+                <CardTitle>Support</CardTitle>
+                <CardDescription>
+                  Manage your account security and authentication options
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-4">
+                  <h3 className="text-lg font-medium">Support</h3>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="supportUrl">Support URL</Label>
+                    <Input id="supportUrl" type="url" />
+                  </div>
+
+                  <Button size="sm">
+                    <i className="ri-lock-line mr-2"></i>
+                    Update Support
                   </Button>
                 </div>
               </CardContent>

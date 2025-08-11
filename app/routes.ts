@@ -7,6 +7,8 @@ import {
 
 export default [
   index("routes/dashboard.tsx"),
+  route("/signin", "routes/signin.tsx"),
+  route("/signup", "routes/signup.tsx"),
   ...prefix("accounts", [
     index("routes/account.tsx"),
     route("/:accountId", "routes/account-details.tsx"),
@@ -19,4 +21,5 @@ export default [
   ]),
   route("/analytics", "routes/analytic.tsx"),
   route("/settings", "routes/setting.tsx"),
+  route("/webhooks", "routes/webhooks.tsx"),
 ] satisfies RouteConfig;

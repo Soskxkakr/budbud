@@ -18,8 +18,8 @@ import {
 } from "~/components/ui/select";
 import { Label } from "~/components/ui/label";
 import { Input } from "~/components/ui/input";
-import { accounts } from "~/data/dummy-data";
 import { cn } from "~/lib/utils";
+import { accounts } from "~/data/dummy-data";
 import type { Account } from "~/types/api";
 
 interface TransferFormProps {
@@ -119,7 +119,7 @@ const TransferForm = ({
                 </div>
                 <Input
                   placeholder="0.00"
-                  className="pl-7"
+                  className="pl-12"
                   value={""}
                   onChange={(e) => {
                     const value = e.target.value;
